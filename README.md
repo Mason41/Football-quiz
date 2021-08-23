@@ -1,7 +1,7 @@
 # Football-quiz
 
 ## Football Quiz
-advanced quiz that features football questions that really only football followers would know!
+Advanced quiz that features football questions that really only football followers would know!
 
 ## Built with 
 * HTML
