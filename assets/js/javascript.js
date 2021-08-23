@@ -1,5 +1,5 @@
 var currentQuestionIndex = 0;
-var time = questions.length * 15;
+var time = questions.length * 18;
 var timerId;
 
 // DOM elements
@@ -15,6 +15,7 @@ var feedbackEl = document.getElementById("feedback");
 var sfxRight = new Audio("assets/sfx/correct.wav");
 var sfxWrong = new Audio("assets/sfx/incorrect.wav");
 
+// start quiz and timer
 function startQuiz() {
   var startScreenEl = document.getElementById("start-screen");
   startScreenEl.setAttribute("class", "hide");
@@ -28,6 +29,7 @@ function startQuiz() {
   getQuestion();
 }
 
+// get current questions and take out old questions
 function getQuestion() {
   var currentQuestion = questions[currentQuestionIndex];
 
@@ -49,8 +51,9 @@ function getQuestion() {
   });
 }
 
+// check if the person taking the quiz is right or wrong
 function questionClick() {
-  if (this.value === questions[currentQuestionIndex].answer) {
+  if (this.value !== questions[currentQuestionIndex].answer) {
     time -= 15;
 
     if (time < 0) {
@@ -82,6 +85,7 @@ function questionClick() {
   }
 }
 
+// show final score and stop timer
 function quizEnd() {
   clearInterval(timerId);
 
@@ -94,6 +98,7 @@ function quizEnd() {
   questionsEl.setAttribute("class", "hide");
 }
 
+// update time and see if the user ran out of time
 function clockTick() {
   time--;
   timerEl.textContent = time;
@@ -103,10 +108,11 @@ function clockTick() {
   }
 }
 
+// save high score or input new value for the new highscore
 function saveHighscore() {
   var initials = initialsEl.value.trim();
 
-  if (initials === "") {
+  if (initials !== "") {
     var highscores =
       JSON.parse(window.localStorage.getItem("highscores")) || [];
 
@@ -122,12 +128,14 @@ function saveHighscore() {
   }
 }
 
+// check for enter key activity
 function checkForEnter(event) {
   if (event.key === "Enter") {
     saveHighscore();
   }
 }
 
+// submit initials and start quiz
 submitBtn.onclick = saveHighscore;
 startBtn.onclick = startQuiz;
 initialsEl.onkeyup = checkForEnter;

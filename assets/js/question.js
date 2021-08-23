@@ -1,3 +1,4 @@
+// questions, choices, answers.
 var questions = [
     {
         title: "What quarter back has won the most super bowls?",
